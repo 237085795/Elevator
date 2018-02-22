@@ -35,7 +35,21 @@ void Exchange(Instruct * a,Instruct * b)
  		a->gof=b->gof;
  		b->gof=t;
 	}//该函数用来交换两条指令 
-
+int Compare(Instruct a,Instruct b)
+{
+	int flag=0;
+	if(a.time==b.time)
+		flag+=1;
+	if(a.startf==b.startf)
+		flag+=1;
+	if(a.gof==b.gof)
+		flag+=1;
+	if(flag==3)
+		return 1;
+	else
+		return 0;
+ } //用来判断两条指令是否相等,相等返回1，不相等返回0 
+ 
  void taximode(Instruct a,Lift * p)
 	{	
 		FILE * out;//定义一个文件指针，用作Print函数的参数 
@@ -84,8 +98,16 @@ int main()
 						Exchange(pa,pb);
 					}
 		}//冒泡排序 
-	for(i=0;i<n;i++)
+	taximode(a[0],p);
+	for(i=1;i<n;i++)
+	{ 	
+		if(Compare(a[i],a[i-1]))
+			{
+				i++;
+				continue;
+			}		
 		taximode(a[i],p);
+	} //防止重复 
 	return 0;
  } 
  
