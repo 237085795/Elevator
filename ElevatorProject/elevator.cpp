@@ -67,7 +67,8 @@ int Compare(Instruct a,Instruct b)
 		p->time+=abs(a.gof-a.startf);
 		p->floor=a.gof;
 		Print(p->time,p->floor,out);
-		p->time+=1;	
+		p->time+=1;
+		fclose(out);	
 	}//出租车模型，就直接把乘客送到目的地，途中不再响应其他乘客的需求  
 	
 int main()
@@ -85,6 +86,7 @@ int main()
 		}
 	for(i=0;i<n;i++)
 		fscanf(in,"%d %d %d/n",&a[i].time,&a[i].startf,&a[i].gof);//文件的输入 
+	fclose(in); 
 	for(i=0;i<n;i++)
 		if(a[i].gof==0)
 			a[i].gof=10;//将去往楼层的0转换为10，方便使用 
