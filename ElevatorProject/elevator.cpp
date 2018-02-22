@@ -12,12 +12,12 @@ typedef struct
 	{
 		int time;
 		int floor;
-	}Lift;
+	}Lift;//定义一个结构体来表示电梯的状态，time表示当前的时刻，floor表示当前楼层 
 
 void Print(int a,int b,FILE * fp)
 	{
 		fprintf(fp,"%d时，停靠在%d楼\n",a,b);
-	}
+	}//该函数用来输出 
 
 void Exchange(Instruct * a,Instruct * b)
 	{
@@ -34,11 +34,11 @@ void Exchange(Instruct * a,Instruct * b)
  		t=a->gof;
  		a->gof=b->gof;
  		b->gof=t;
-	}
+	}//该函数用来交换两条指令 
 
  void taximode(Instruct a,Lift * p)
 	{	
-		FILE * out;
+		FILE * out;//定义一个文件指针，用作Print函数的参数 
 		if((out=fopen("./output.txt","a"))==NULL)
 		{
 			printf("无法打开此文件\n");
@@ -54,14 +54,14 @@ void Exchange(Instruct * a,Instruct * b)
 		p->floor=a.gof;
 		Print(p->time,p->floor,out);
 		p->time+=1;	
-	}
+	}//出租车模型，就直接把乘客送到目的地，途中不再响应其他乘客的需求  
 	
 int main()
 {	
-	int n=5,i,j,totaltime=0;
-	Instruct a[5],* pa,* pb;
-	Lift b={0,1};
-	Lift * p;	
+	int n=5,i,j,totaltime=0;//n为指令（乘客）数目方便以后变动 
+	Instruct a[5],* pa,* pb;//定义五条命令和两个用来交换的指针 
+	Lift b={0,1};//定义了一个电梯b，并赋予初始状态 
+	Lift * p;//定义一个指针用来在函数中改变电梯的状态	
 	FILE * in;
 	p=&b;
 	if((in=fopen("./input.txt","r"))==NULL)
@@ -70,10 +70,10 @@ int main()
 			exit(0);
 		}
 	for(i=0;i<n;i++)
-		fscanf(in,"%d %d %d/n",&a[i].time,&a[i].startf,&a[i].gof);
+		fscanf(in,"%d %d %d/n",&a[i].time,&a[i].startf,&a[i].gof);//文件的输入 
 	for(i=0;i<n;i++)
 		if(a[i].gof==0)
-			a[i].gof=10;
+			a[i].gof=10;//将去往楼层的0转换为10，方便使用 
 	for(j=0;j<=n-2;j++)
 		{	
 			for(i=0;i<=n-2-j;i++)
@@ -83,7 +83,7 @@ int main()
 						pb=&a[i+1];				
 						Exchange(pa,pb);
 					}
-		}
+		}//冒泡排序 
 	for(i=0;i<n;i++)
 		taximode(a[i],p);
 	return 0;
