@@ -75,7 +75,7 @@ int main()
 	int n=5,i,j,totaltime=0;//n为指令（乘客）数目方便以后变动 
 	Instruct a[5],* pa,* pb;//定义五条命令和两个用来交换的指针 
 	Lift b={0,1};//定义了一个电梯b，并赋予初始状态 
-	Lift * p;//定义一个指针用来在函数中改变电梯的状态	
+	Lift * p;//定义一个指针用来在函数中改变电梯的状态
 	FILE * in;
 	p=&b;
 	if((in=fopen("./input.txt","r"))==NULL)
@@ -103,11 +103,10 @@ int main()
 	{ 	
 		if(Compare(a[i],a[i-1]))
 			{
-				i++;
 				continue;
 			}		
 		taximode(a[i],p);
-	} //防止重复 
+	} //过滤重复命令 
 	return 0;
  } 
  
